@@ -1,0 +1,84 @@
+clc 
+clear all
+
+%% LO PRIMERO QUE SE DEBE HACER ES LEER ESTOS ARCHIVOS Y ORGANIZARLOS EN 
+% UNA ESTRUCTURA TAL QUE PUEDA SER FACILMENTA MANIPULABLE. EN ESTE CASO SE
+% PUEDEN GUARDAR MÚLTIPLES GRABACIONES DE VOZ POR MEDIO DE LOS CELL ARRAYS.
+
+nombres=asignacion();
+
+Fs1=22050;
+Fs=7500;
+
+results=cell(20,7); %este es el cell array que va a contener los resultados
+                    %de las señales pre procesada
+                    
+
+%% PRE-PROCESAMIENTO
+for i=1:20
+    for j=1:7
+        sx=audioread(nombres{i,j});
+        results{i,j}= preproc(Fs1,sx); %results va a ser un cell array que 
+                                    %contenga todas las señales ya
+                                    %pre-procesadas.
+    end
+end
+
+
+%% EXTRACCIÓN DE CARACTERÍSTICAS
+%Como ya tenemos las señales sin ningun tipo de ruido que pueda
+%distorsionar al algoritmo, vamos a extraer la de cada uno en tiempo y en
+%frecuencia.
+
+%Primero vamos a hacerlo en tiempo.
+
+%Sacamos el valor RMS de la envolvente de la señal y tambien la tasa de
+%cruces por cero (ZCR).
+
+mc1=[]; %matriz de características
+mc2=[];
+% CARACTERISTICAS:
+% 1. Valor RMS de la envolvente de la señal.
+% 2. Tasa de cruces por cero de la señal.
+% 3. Frecuencia promedio
+% 4. Frecuencia mediana
+% 5. Desviación estandar
+% 6. Primer cuantil
+% 7. Tercer cuantil
+% 8. Rango intercuantil
+% 9. Asimetría 
+% 10. Curtosis
+% 11. Entropía espectral
+% 12. Achatamiento del espectro
+% 13. Moda del espectro
+% 14. Frecuencia fundamental media
+% 15. Frecuencia fundamental mínima
+% 16. Frecuencia fundamental máxima
+for i=1:20
+    for j=1:7
+        temp=results{i,j};
+        [vrms,zcr]=caractiempo(temp);
+        mc1(i,j)=vrms;
+        mc2(i,j)=zcr;
+        salida=caract_voz(temp,Fs);
+        mc3(i,j)=salida(1);
+        mc4(i,j)=salida(2);
+        mc5(i,j)=salida(3);
+        mc6(i,j)=salida(4);
+        mc7(i,j)=salida(5);
+        mc8(i,j)=salida(6);
+        mc9(i,j)=salida(7);
+        mc10(i,j)=salida81);
+        mc11(i,j)=salida(1);
+        mc12(i,j)=salida(1);
+        mc13(i,j)=salida(1);
+        mc14(i,j)= salida(1);
+        mc15(i,j)=salida(1);
+        mc16(i,j)=salida(1);
+    end
+end
+
+
+
+    
+
